@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application contre le Harcèlement</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            line-height: 1.6;
+        }
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        .nav {
+            display: flex;
+            flex-direction: column;
+            background-color: #333;
+        }
+        .nav a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+        }
+        .nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .container {
+            padding: 1rem;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-group textarea {
+            resize: vertical;
+            height: 100px;
+        }
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            display: block;
+            width: 100%;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .footer {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .hidden {
+            display: none;
+        }
+        .section {
+            display: none;
+        }
+        .section.active {
+            display: block;
+        }
+        @media (min-width: 600px) {
+            .nav {
+                flex-direction: row;
+                justify-content: space-around;
+            }
+        }
+
+        /* Carrousel styles */
+        .carousel {
+            position: relative;
+            max-width: 100%;
+            margin: auto;
+            overflow: hidden;
+        }
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .slide {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+        .carousel-buttons {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+        .carousel-button {
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            padding: 1rem;
+            cursor: pointer;
+        }
+        .carousel-button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+    </style>
+    <script>
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            showSection('home'); // Show home section by default
+
+            // Carrousel functionality
+            const slides = document.querySelector('.slides');
+            const totalSlides = document.querySelectorAll('.slide').length;
+            let currentIndex = 0;
+
+            document.querySelector('.prev').addEventListener('click', () => {
+                currentIndex = (currentIndex === 0) ? totalSlides - 1 : currentIndex - 1;
+                updateCarousel();
+            });
+
+            document.querySelector('.next').addEventListener('click', () => {
+                currentIndex = (currentIndex === totalSlides - 1) ? 0 : currentIndex + 1;
+                updateCarousel();
+            });
+
+            function updateCarousel() {
+                slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="header">
+        <h1>Application contre le Harcèlement</h1>
+    </div>
+    <div class="nav">
+        <a href="javascript:void(0);" onclick="showSection('home')">Accueil</a>
+        <a href="javascript:void(0);" onclick="showSection('report')">Signaler</a>
+        <a href="javascript:void(0);" onclick="showSection('resources')">Ressources</a>
+        <a href="javascript:void(0);" onclick="showSection('login')">Connexion</a>
+        <a href="javascript:void(0);" onclick="showSection('chat')">Chat</a>
+    </div>
+    <div class="container">
+        <!-- Section Accueil -->
+        <div id="home" class="section active">
+            <h2>Bienvenue</h2>
+            <div class="carousel">
+                <div class="slides">
+                    <div class="slide">
+                        <img src="https://via.placeholder.com/800x300?text=Slide+1" alt="Slide 1" style="width:100%">
+                    </div>
+                    <div class="slide">
+                        <img src="https://via.placeholder.com/800x300?text=Slide+2" alt="Slide 2" style="width:100%">
+                    </div>
+                    <div class="slide">
+                        <img src="https://via.placeholder.com/800x300?text=Slide+3" alt="Slide 3" style="width:100%">
+                    </div>
+                </div>
+                <div class="carousel-buttons">
+                    <button class="carousel-button prev">&#10094;</button>
+                    <button class="carousel-button next">&#10095;</button>
+                </div>
+            </div>
+            <p>Bienvenue sur notre application dédiée à la lutte contre le harcèlement. Utilisez les liens de navigation pour explorer les différentes fonctionnalités.</p>
+        </div>
+        
+        <!-- Section Signaler -->
+        <div id="report" class="section">
+            <h2>Signaler un Incident</h2>
+            <form>
+                <div class="form-group">
+                    <label for="name">Nom (optionnel) :</label>
+                    <input type="text" id="name" name="name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email (optionnel) :</label>
+                    <input type="email" id="email" name="email">
+                </div>
+                <div class="form-group">
+                    <label for="date">Date de l'incident :</label>
+                    <input type="date" id="date" name="date">
+                </div>
+                <div class="form-group">
+                    <label for="location">Lieu de l'incident :</label>
+                    <input type="text" id="location" name="location">
+                </div>
+                <div class="form-group">
+                    <label for="description">Description de l'incident :</label>
+                    <textarea id="description" name="description" required></textarea>
+                </div>
+                <button type="submit" class="button">Envoyer</button>
+            </form>
+        </div>
+
+        <!-- Section Ressources -->
+        <div id="resources" class="section">
+            <h2>Ressources</h2>
+            <ul>
+                <li><a href="#">Ligne d'écoute contre le harcèlement</a></li>
+                <li><a href="#">Conseils pour les victimes de harcèlement</a></li>
+                <li><a href="#">Comment aider une personne harcelée</a></li>
+                <li><a href="#">Législation et droits des victimes</a></li>
+            </ul>
+        </div>
+
+        <!-- Section Connexion -->
+        <div id="login" class="section">
+            <h2>Connexion</h2>
+            <form>
+                <div class="form-group">
+                    <label for="loginEmail">Email :</label>
+                    <input type="email" id="loginEmail" name="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Mot de passe :</label>
+                    <input type="password" id="loginPassword" name="loginPassword" required>
+                </div>
+                <button type="submit" class="button">Connexion</button>
+            </form>
+            <p>Pas encore de compte ? <a href="javascript:void(0);" onclick="showSection('register')">Inscrivez-vous</a></p>
+        </div>
+
+        <!-- Section Inscription -->
+        <div id="register" class="section">
+            <h2>Inscription</h2>
+            <form>
+                <div class="form-group">
+                    <label for="registerEmail">Email :</label>
+                    <input type="email" id="registerEmail" name="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Mot de passe :</label>
+                    <input type="password" id="registerPassword" name="registerPassword" required>
+                </div>
+                <button type="submit" class="button">Inscription</button>
+            </form>
+            <p>Déjà un compte ? <a href="javascript:void(0);" onclick="showSection('login')">Connectez-vous</a></p>
+        </div>
+
+        <!-- Section Chat -->
+        <div id="chat" class="section">
+            <h2>Chat en Direct</h2>
+            <form>
+                <div class="form-group">
+                    <label for="message">Votre Message :</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="button">Envoyer</button>
+            </form>
+        </div>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 Application contre le Harcèlement</p>
+    </div>
+</body>
+</html>
